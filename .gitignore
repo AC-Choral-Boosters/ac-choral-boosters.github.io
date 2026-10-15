@@ -12,6 +12,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# spec files
+claude.md
+spec.md
+
 
 # environment variables
 .env
