@@ -1,0 +1,42 @@
+# Builds the site from the sample data in tests/fixtures and runs the Playwright tests.
+# Uses no live Sheet data, so results do not depend on what the editor has typed.
+name: Test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      DATA_SOURCE: fixtures
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Install the Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - run: npx playwright test
+
+      - name: Keep the test report when tests fail
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14

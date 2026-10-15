@@ -225,7 +225,7 @@ Shared layout: header (club name, nav), banner when `banner_enabled` is TRUE, fo
 - No custom domain yet. `astro.config` reads `site` and `base` from env vars `SITE_URL` and `BASE_PATH`, which the workflow fills from `actions/configure-pages` outputs. Before a domain: `https://<org>.github.io` + `/<repo>`. After a domain is set in repo Settings > Pages: the domain + no base. No code change needed when the domain is added.
 - All internal links and asset paths go through `withBase()` in `src/lib/paths.ts`.
 - Scheduled workflows in public repos are disabled after 60 days without repo activity. Add a safeguard (for example a monthly keepalive step or documented re-enable check). Check current GitHub docs for the recommended approach.
-- Custom domain (later): set in repo Settings > Pages. Check current GitHub docs on whether `public/CNAME` is needed for Actions-based deploys (believed not).
+- Custom domain (later): set in repo Settings > Pages. No `public/CNAME` file: GitHub ignores it for Actions-based deploys (confirmed in GitHub Pages docs, Oct 2026).
 
 `.github/workflows/test.yml`: on pull request and push, run build + Playwright with `DATA_SOURCE=fixtures`.
 
@@ -236,7 +236,7 @@ Shared layout: header (club name, nav), banner when `banner_enabled` is TRUE, fo
 ```
 /
   .github/workflows/deploy.yml  test.yml
-  public/  CNAME  favicon.svg  images/
+  public/  favicon.svg  images/
   src/
     lib/sheet.ts  schemas.ts  format.ts  youtube.ts  text.ts
     components/  Header Footer Banner LinkButton EventList MeetingList VideoEmbed ContentSection
@@ -256,7 +256,7 @@ Shared layout: header (club name, nav), banner when `banner_enabled` is TRUE, fo
 2. **Data layer:** `sheet.ts` loader, zod schemas for all 6 tabs, fixture CSVs matching section 5, unit tests for parsing (booleans, both date formats, bad rows skipped, URL and YouTube validation).
 3. **Pages:** implement section 6 using fixtures.
 4. **Live data:** wire `site.config.json` URLs; confirm a live build works.
-5. **Deploy:** both workflows, CNAME, keepalive safeguard.
+5. **Deploy:** both workflows, keepalive safeguard.
 6. **Tests:** Playwright smoke per page, banner on/off, past events hidden, empty-state checks, axe scan.
 7. **Docs:** README (developer: run, test, deploy, add an image) and `EDITOR_GUIDE.md` (one page, plain language: how to edit each tab, how long updates take, what to do if something does not appear).
 

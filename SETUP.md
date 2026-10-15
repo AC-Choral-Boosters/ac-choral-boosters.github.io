@@ -85,7 +85,7 @@ Note: published data can lag a few minutes behind edits. Combined with hourly bu
     - `www`: CNAME to `<org>.github.io`
 4. Repo > Settings > Pages > Custom domain: enter the domain, Save.
 5. When DNS resolves (minutes to a few hours), check **Enforce HTTPS**.
-6. Make sure `public/CNAME` and `astro.config` `site` match the domain (Claude Code handles this in phase 5).
+6. No code change is needed. The next deploy picks up the domain automatically (no `CNAME` file is used).
 
 ---
 
@@ -107,7 +107,7 @@ Note: published data can lag a few minutes behind edits. Combined with hourly bu
 ## Ongoing maintenance (5 min a month)
 
 - **Build failures:** GitHub emails you when a scheduled run fails. The last good site stays live, so check the Actions log and fix the Sheet row or tab it names.
-- **60-day rule:** GitHub disables scheduled workflows in public repos after 60 days without repo activity. The keepalive in phase 5 handles this; if the schedule ever shows "disabled," re-enable it in the Actions tab.
+- **60-day rule:** GitHub disables scheduled workflows in public repos after 60 days without repo activity. A monthly keepalive step tries to prevent this, but GitHub does not guarantee it works. If the Actions tab ever shows the Deploy workflow as disabled, click it and choose **Enable workflow** (see README).
 - **Yearly:** renew the domain; review Owners in the GitHub org and Google account access when the board changes.
 
 ---
