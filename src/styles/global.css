@@ -4,11 +4,11 @@
   --ink: #1f1f1f;
   --ink-soft: #4a4a4a;
   --gold: #c9a227;
-  --gold-dark: #6b5200; /* gold for text on light backgrounds (5.5:1 or better) */
-  --gold-tint: #e9dfc2;
-  --paper: #eeebe3; /* warm off-white, easier on the eyes than pure white */
-  --paper-alt: #e2ded2;
-  --line: #d3cdbd;
+  --gold-dark: #6b5200; /* gold for text on light backgrounds (5:1 or better) */
+  --gold-tint: #e0d5b6;
+  --paper: #e6e2d8; /* warm off-white, easier on the eyes than pure white */
+  --paper-alt: #d9d4c6;
+  --line: #cac3b1;
 
   --radius: 10px;
   --space: 1rem;
