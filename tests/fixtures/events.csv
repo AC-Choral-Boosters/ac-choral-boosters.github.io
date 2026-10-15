@@ -1,0 +1,8 @@
+title,start_date,end_date,time,location,description,link_label,link_url,visible
+Fall Concert,2099-11-14,,7:00 PM,School Theater,Our first concert of the year,Buy Tickets,https://tickets.example.org,TRUE
+Winter Concert,12/12/2099,,7:00 PM,School Theater,Holiday songs and more,,,TRUE
+Spring Tour,2099-04-10,4/13/2099,,Los Angeles,Concert Choir tour,Tour details,https://example.org/tour,TRUE
+Crab Dinner,2/6/2100,,6:00 PM,Middle School Gym,Annual fundraiser dinner,Get Tickets,https://example.org/crab,TRUE
+Past Concert,2020-05-01,,7:00 PM,School Theater,This event is over,,,TRUE
+Hidden Event,2099-01-01,,,,Not ready yet,,,FALSE
+Bad Date Event,next tues,,,,Should be skipped,,,TRUE

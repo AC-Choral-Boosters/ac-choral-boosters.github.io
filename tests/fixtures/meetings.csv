@@ -1,0 +1,5 @@
+date,title,time,location,agenda_url,minutes_url,notes,visible
+2020-08-25,August Meeting,6:00 PM,Zoom,https://docs.google.com/document/d/example-agenda-aug,https://docs.google.com/document/d/example-minutes-aug,,TRUE
+9/29/2020,,5:00 PM,Choir Room,https://docs.google.com/document/d/example-agenda-sep,,,TRUE
+2099-10-27,October Meeting,6:00 PM,Choir Room,https://docs.google.com/document/d/example-agenda-oct,,Bring fundraiser ideas,TRUE
+2099-11-24,November Meeting,6:00 PM,Zoom,,,,TRUE

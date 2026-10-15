@@ -1,0 +1,5 @@
+title,youtube_url,description,show_on_home,order,visible
+Fall Concert Highlights,https://www.youtube.com/watch?v=eRsGyueVLvQ&t=10s,Concert Choir,TRUE,1,TRUE
+Spring Showcase,https://youtu.be/R6MlUcmOul8,Chamber Singers,TRUE,2,TRUE
+Tour Short,https://www.youtube.com/shorts/aqz-KE-bpKQ,A quick look at tour,FALSE,3,TRUE
+Not a Video,https://vimeo.com/123456,Should be skipped,FALSE,4,TRUE

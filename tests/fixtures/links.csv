@@ -1,0 +1,10 @@
+label,url,description,category,featured,order,visible
+Donate,https://example.org/donate,Every dollar supports our students,donate,TRUE,1,TRUE
+Pay for Tours,https://example.org/pay,Tour deposits and payments,payment,TRUE,2,TRUE
+Buy Tickets,https://tickets.example.org,Show and event tickets,tickets,TRUE,3,TRUE
+Volunteer,https://example.org/volunteer,Sign up to help at events,volunteer,FALSE,4,TRUE
+Bylaws,https://docs.google.com/document/d/example-bylaws,Official bylaws,document,,1,
+IRS Letter,https://docs.google.com/document/d/example-irs,501(c)(3) determination letter,document,no,2,yes
+Email the Board,mailto:boosters@example.org,,other,,,
+Old Fundraiser,https://example.org/old,No longer running,donate,FALSE,9,FALSE
+Bad Script Link,javascript:alert(1),Should be skipped,donate,TRUE,1,TRUE

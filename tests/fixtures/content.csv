@@ -1,0 +1,11 @@
+page,order,heading,body,image,image_alt,visible
+home,1,Welcome,"We support students through fundraising, volunteering, and community events.",boosters-logo.jpg,AC Choral Boosters logo,TRUE
+about,1,Who we are,"The booster club is a parent volunteer group.
+
+Questions? Email boosters@example.org or visit https://example.org.",,,TRUE
+about,2,Board,"- President: Name
+- Treasurer: Name
+- Secretary: Name",,,TRUE
+donate,1,Why give,"Donations fund travel, equipment, and scholarships.",,,TRUE
+payments,1,How payments work,All payments are handled securely on the sites linked below.,,,TRUE
+contact,1,Get in touch,We read every email and reply within a few days.,,,TRUE
