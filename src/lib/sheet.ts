@@ -183,6 +183,9 @@ interface SiteConfig {
   sheetTabs: Record<Tab, string>;
 }
 
+/** A stalled request fails the build instead of hanging it. */
+const FETCH_TIMEOUT_MS = 30_000;
+
 function fixturePath(tab: Tab): string {
   return join(process.cwd(), 'tests', 'fixtures', `${tab}.csv`);
 }
@@ -198,7 +201,7 @@ async function fetchTab(tab: Tab, source: 'live' | 'fixtures', config: SiteConfi
   if (!url) throw new SheetError(`[${tab}] no CSV URL in site.config.json (sheetTabs.${tab})`);
   let response: Response;
   try {
-    response = await fetch(url);
+    response = await fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
   } catch (error) {
     throw new SheetError(`[${tab}] could not reach the Sheet: ${(error as Error).message}`);
   }
