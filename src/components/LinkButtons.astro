@@ -1,5 +1,7 @@
 ---
 // A group of link buttons. Renders nothing when there are no links.
+// Columns are picked from the number of links so rows come out even
+// (4 links: one row of 4; 5: 3 + 2; 6: 3 + 3). A short last row is centered.
 import LinkButton from './LinkButton.astro';
 import type { Link } from '../lib/schemas';
 
@@ -8,11 +10,25 @@ interface Props {
 }
 
 const { links } = Astro.props;
+
+/** Most columns (up to max) that divide the links evenly, else the one that fills the last row best. */
+function columnsFor(count: number, max: number): number {
+  if (count <= max) return count;
+  let best = max;
+  let bestFill = 0;
+  for (let cols = max; cols >= 2; cols--) {
+    const fill = count % cols === 0 ? cols : count % cols;
+    if (fill > bestFill) [best, bestFill] = [cols, fill];
+  }
+  return best;
+}
+
+const style = `--cols-mid: ${columnsFor(links.length, 3)}; --cols-wide: ${columnsFor(links.length, 4)}`;
 ---
 
 {
   links.length > 0 && (
-    <ul class="link-buttons" role="list">
+    <ul class="link-buttons" role="list" style={style}>
       {links.map((link) => (
         <li>
           <LinkButton link={link} />
