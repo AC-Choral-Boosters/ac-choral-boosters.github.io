@@ -1,6 +1,9 @@
-/* Global styles. Mobile-first; colors from the club logo (black and gold). */
+/* Global styles. Mobile-first; colors from the club logo (black and gold).
+   Dark mode follows the visitor's device setting (no toggle, since public pages have no JS). */
 
 :root {
+  color-scheme: light dark;
+
   --ink: #1f1f1f;
   --ink-soft: #4a4a4a;
   --gold: #c9a227;
@@ -9,12 +12,29 @@
   --paper: #e6e2d8; /* warm off-white, easier on the eyes than pure white */
   --paper-alt: #d9d4c6;
   --line: #cac3b1;
+  --on-gold: #1f1f1f; /* text on gold buttons, same in both modes */
+  --footer-bg: #1f1f1f;
+  --footer-ink: #e6e2d8;
+  --footer-muted: #cfcfcf;
 
   --radius: 10px;
   --space: 1rem;
   --max-width: 60rem;
 
   --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e8e3d8;
+    --ink-soft: #b5ae9f;
+    --gold-dark: #dcbc55; /* link gold, lighter for dark backgrounds */
+    --gold-tint: #3a3222;
+    --paper: #1c1b19;
+    --paper-alt: #2b2925;
+    --line: #3e3a33;
+    --footer-bg: #121110;
+  }
 }
 
 *,
@@ -184,8 +204,8 @@ main {
 
 /* Footer */
 .site-footer {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--footer-bg);
+  color: var(--footer-ink);
   border-top: 4px solid var(--gold);
   padding-block: 1.5rem;
   font-size: 0.95rem;
@@ -196,7 +216,7 @@ main {
 }
 
 .site-footer a:hover {
-  color: var(--paper);
+  color: var(--footer-ink);
 }
 
 .site-footer :focus-visible {
@@ -213,7 +233,7 @@ main {
 }
 
 .footer-updated {
-  color: #cfcfcf;
+  color: var(--footer-muted);
   font-size: 0.85rem;
 }
 
@@ -267,7 +287,7 @@ main section {
   min-height: 48px;
   padding: 0.75rem 1.5rem;
   background: var(--gold);
-  color: var(--ink);
+  color: var(--on-gold);
   font-weight: 700;
   text-decoration: none;
   border-radius: 999px;
@@ -442,5 +462,18 @@ address {
 
   .video-grid {
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
+}
+
+/* Dark mode images: the logo JPEGs are black on white, so show them on their own
+   light tile instead of blending (blending would make the black parts disappear). */
+@media (prefers-color-scheme: dark) {
+  .brand img,
+  .content-image {
+    mix-blend-mode: normal;
+  }
+
+  .brand img {
+    border-radius: 6px;
   }
 }

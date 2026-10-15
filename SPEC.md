@@ -208,6 +208,7 @@ Shared layout: header (club name, nav), banner when `banner_enabled` is TRUE, fo
 
 ### Global
 - Mobile-first, readable at 320 px
+- Dark mode follows the visitor's device setting (`prefers-color-scheme`); CSS only, no toggle. Both modes meet 4.5:1 contrast
 - Lighthouse accessibility and performance >= 90
 - axe: zero serious or critical violations
 - Per-page title and meta description; favicon; Open Graph tags
