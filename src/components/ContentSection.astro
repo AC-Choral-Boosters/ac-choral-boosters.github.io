@@ -1,0 +1,50 @@
+---
+// One row from the Content tab: optional heading, body text, and image.
+import ExternalLink from './ExternalLink.astro';
+import { withBase } from '../lib/paths';
+import type { ContentSection } from '../lib/schemas';
+import { parseBody, type Line } from '../lib/text';
+
+interface Props {
+  section: ContentSection;
+}
+
+const { section } = Astro.props;
+const blocks = section.body ? parseBody(section.body) : [];
+const hasContent = section.heading || blocks.length > 0 || section.image;
+---
+
+{
+  hasContent && (
+    <section class="content-section">
+      {section.heading && <h2>{section.heading}</h2>}
+      {section.image && (
+        <img class="content-image" src={withBase(`/images/${section.image}`)} alt={section.image_alt} loading="lazy" />
+      )}
+      {blocks.map((block) =>
+        block.type === 'paragraph' ? (
+          <p>
+            {block.lines.map((line: Line, i: number) => (
+              <>
+                {i > 0 && <br />}
+                {line.map((piece) =>
+                  'href' in piece ? <ExternalLink href={piece.href}>{piece.text}</ExternalLink> : piece.text,
+                )}
+              </>
+            ))}
+          </p>
+        ) : (
+          <ul>
+            {block.items.map((item: Line) => (
+              <li>
+                {item.map((piece) =>
+                  'href' in piece ? <ExternalLink href={piece.href}>{piece.text}</ExternalLink> : piece.text,
+                )}
+              </li>
+            ))}
+          </ul>
+        ),
+      )}
+    </section>
+  )
+}

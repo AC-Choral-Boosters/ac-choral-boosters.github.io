@@ -1,7 +1,9 @@
 ---
+import Banner from '../components/Banner.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { withBase } from '../lib/paths';
+import { loadSheet } from '../lib/sheet';
 import '../styles/global.css';
 
 interface Props {
@@ -12,8 +14,8 @@ interface Props {
 
 const { title, description } = Astro.props;
 
-// Placeholder until phase 2/3 wires in Settings.club_name from the Sheet.
-const clubName = 'AC Choral Boosters';
+const { settings } = await loadSheet();
+const clubName = settings.club_name;
 
 const pageTitle = title ? `${title} | ${clubName}` : clubName;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
@@ -40,9 +42,10 @@ const ogImage = Astro.site ? new URL(withBase('/images/boosters-logo.jpg'), Astr
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <Header clubName={clubName} />
+    <Banner settings={settings} />
     <main id="main" class="container">
       <slot />
     </main>
-    <Footer clubName={clubName} />
+    <Footer settings={settings} />
   </body>
 </html>

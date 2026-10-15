@@ -1,0 +1,14 @@
+---
+import VideoEmbed from './VideoEmbed.astro';
+import type { Video } from '../lib/schemas';
+
+interface Props {
+  videos: Video[];
+}
+
+const { videos } = Astro.props;
+---
+
+<div class="video-grid">
+  {videos.map((video) => <VideoEmbed video={video} />)}
+</div>

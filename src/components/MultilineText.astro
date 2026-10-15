@@ -1,0 +1,10 @@
+---
+// Plain text that keeps the line breaks typed in a Sheet cell.
+interface Props {
+  text: string;
+}
+
+const lines = Astro.props.text.split(/\r?\n/);
+---
+
+{lines.map((line, i) => (i === 0 ? line : <><br />{line}</>))}

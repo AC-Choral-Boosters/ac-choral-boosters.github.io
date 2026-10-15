@@ -1,19 +1,37 @@
 ---
+import ExternalLink from './ExternalLink.astro';
+import MultilineText from './MultilineText.astro';
+import SocialLinks from './SocialLinks.astro';
 import { formatTimestamp } from '../lib/format';
+import type { Settings } from '../lib/schemas';
 
 interface Props {
-  clubName: string;
+  settings: Settings;
 }
 
-const { clubName } = Astro.props;
-
-// Contact email, social links, and the 501(c)(3) line come from Settings in phase 3.
+const { settings } = Astro.props;
 const lastUpdated = formatTimestamp(new Date());
 ---
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-name">{clubName}</p>
+    <p class="footer-name">{settings.club_name}</p>
+    <p>
+      <ExternalLink href={`mailto:${settings.contact_email}`}>{settings.contact_email}</ExternalLink>
+    </p>
+    {
+      settings.mailing_address && (
+        <p>
+          <MultilineText text={settings.mailing_address} />
+        </p>
+      )
+    }
+    <SocialLinks settings={settings} />
+    {
+      settings.is_501c3 && (
+        <p>501(c)(3) nonprofit{settings.ein && `, EIN ${settings.ein}`}</p>
+      )
+    }
     <p class="footer-updated">Last updated {lastUpdated}</p>
   </div>
 </footer>

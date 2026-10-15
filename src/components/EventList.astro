@@ -1,0 +1,33 @@
+---
+import ExternalLink from './ExternalLink.astro';
+import { formatDateRange } from '../lib/format';
+import type { Event } from '../lib/schemas';
+
+interface Props {
+  events: Event[];
+}
+
+const { events } = Astro.props;
+---
+
+<ul class="item-list" role="list">
+  {
+    events.map((event) => (
+      <li class="item">
+        <h3 class="item-title">{event.title}</h3>
+        <p class="item-meta">
+          {[formatDateRange(event.start_date, event.end_date), event.time, event.location].filter(Boolean).join(' · ')}
+        </p>
+        {event.description && <p>{event.description}</p>}
+        {event.link_url && (
+          <p>
+            <ExternalLink href={event.link_url}>
+              {event.link_label ?? 'Details'}
+              <span class="sr-only">: {event.title}</span>
+            </ExternalLink>
+          </p>
+        )}
+      </li>
+    ))
+  }
+</ul>

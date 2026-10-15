@@ -22,3 +22,24 @@ export function formatTimestamp(date: Date): string {
   }).format(date);
   return `${formatDate(date)}, ${time}`;
 }
+
+/** Today's date in Pacific time as "2026-10-14" (comparable with Sheet dates). */
+export function todayPacific(now: Date = new Date()): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    timeZone: TIME_ZONE,
+  }).format(now);
+}
+
+/** "2026-10-14" -> "Wed, Oct 14, 2026". Noon UTC is the same calendar day in Pacific time. */
+export function formatSheetDate(isoDate: string): string {
+  return formatDate(new Date(`${isoDate}T12:00:00Z`));
+}
+
+/** One date, or "Sat, Apr 10, 2099 to Tue, Apr 13, 2099" for a range. */
+export function formatDateRange(start: string, end?: string): string {
+  if (!end || end === start) return formatSheetDate(start);
+  return `${formatSheetDate(start)} to ${formatSheetDate(end)}`;
+}

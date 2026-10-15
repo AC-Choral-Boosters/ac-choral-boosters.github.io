@@ -1,0 +1,23 @@
+---
+// A group of link buttons. Renders nothing when there are no links.
+import LinkButton from './LinkButton.astro';
+import type { Link } from '../lib/schemas';
+
+interface Props {
+  links: Link[];
+}
+
+const { links } = Astro.props;
+---
+
+{
+  links.length > 0 && (
+    <ul class="link-buttons" role="list">
+      {links.map((link) => (
+        <li>
+          <LinkButton link={link} />
+        </li>
+      ))}
+    </ul>
+  )
+}

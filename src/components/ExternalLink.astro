@@ -1,0 +1,21 @@
+---
+// A link to a URL from the Sheet. Web links get an off-site icon and rel="noopener";
+// mailto links do not. URLs were already checked by the schemas (https, http, mailto only).
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'a'> & { href: string };
+
+const { href, ...rest } = Astro.props;
+const offSite = /^https?:/i.test(href);
+---
+
+<a href={href} rel={offSite ? 'noopener' : undefined} {...rest}><slot />{
+    offSite && (
+      <>
+        <svg class="offsite-icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16" width="14" height="14">
+          <path d="M9 2h5v5M14 2 7 9M12 9v4a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="sr-only"> (external site)</span>
+      </>
+    )
+  }</a>

@@ -1,7 +1,29 @@
 ---
 import Base from '../layouts/Base.astro';
+import ContentSection from '../components/ContentSection.astro';
+import LinkButtons from '../components/LinkButtons.astro';
+import { linksIn, loadSheet, sectionsFor } from '../lib/sheet';
+
+const { links, content } = await loadSheet();
+const sections = sectionsFor(content, 'payments');
+const groups = [
+  { id: 'payments', heading: 'Payments', links: linksIn(links, 'payment') },
+  { id: 'tickets', heading: 'Tickets', links: linksIn(links, 'tickets') },
+  { id: 'volunteer', heading: 'Volunteer', links: linksIn(links, 'volunteer') },
+].filter((group) => group.links.length > 0);
 ---
 
 <Base title="Payments" description="Links to pay for choir trips and fees, buy tickets, and volunteer.">
   <h1>Payments and Tickets</h1>
+
+  {sections.map((section) => <ContentSection section={section} />)}
+
+  {
+    groups.map((group) => (
+      <section aria-labelledby={group.id}>
+        <h2 id={group.id}>{group.heading}</h2>
+        <LinkButtons links={group.links} />
+      </section>
+    ))
+  }
 </Base>

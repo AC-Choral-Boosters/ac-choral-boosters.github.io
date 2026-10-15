@@ -1,7 +1,47 @@
 ---
 import Base from '../layouts/Base.astro';
+import ContentSection from '../components/ContentSection.astro';
+import ExternalLink from '../components/ExternalLink.astro';
+import MultilineText from '../components/MultilineText.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { loadSheet, sectionsFor } from '../lib/sheet';
+
+const { settings, content } = await loadSheet();
+const sections = sectionsFor(content, 'contact');
+const hasSocial = Boolean(
+  settings.instagram_url || settings.facebook_url || settings.youtube_channel_url || settings.twitter_url,
+);
 ---
 
 <Base title="Contact" description="How to reach the American Canyon Choral Boosters.">
   <h1>Contact</h1>
+
+  {sections.map((section) => <ContentSection section={section} />)}
+
+  <section aria-labelledby="email">
+    <h2 id="email">Email</h2>
+    <p>
+      <ExternalLink href={`mailto:${settings.contact_email}`}>{settings.contact_email}</ExternalLink>
+    </p>
+  </section>
+
+  {
+    settings.mailing_address && (
+      <section aria-labelledby="mail">
+        <h2 id="mail">Mailing address</h2>
+        <address>
+          <MultilineText text={settings.mailing_address} />
+        </address>
+      </section>
+    )
+  }
+
+  {
+    hasSocial && (
+      <section aria-labelledby="social">
+        <h2 id="social">Follow us</h2>
+        <SocialLinks settings={settings} />
+      </section>
+    )
+  }
 </Base>

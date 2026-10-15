@@ -1,0 +1,15 @@
+---
+import ExternalLink from './ExternalLink.astro';
+import type { Link } from '../lib/schemas';
+
+interface Props {
+  link: Link;
+}
+
+const { link } = Astro.props;
+---
+
+<div class="link-button">
+  <ExternalLink class="btn" href={link.url}>{link.label}</ExternalLink>
+  {link.description && <p class="link-button-description">{link.description}</p>}
+</div>

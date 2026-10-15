@@ -1,7 +1,43 @@
 ---
 import Base from '../layouts/Base.astro';
+import ContentSection from '../components/ContentSection.astro';
+import ExternalLink from '../components/ExternalLink.astro';
+import VideoList from '../components/VideoList.astro';
+import { byOrder, linksIn, loadSheet, sectionsFor } from '../lib/sheet';
+
+const { links, videos, content } = await loadSheet();
+const sections = sectionsFor(content, 'about');
+const documents = linksIn(links, 'document');
+const moreVideos = byOrder(videos.filter((video) => !video.show_on_home));
 ---
 
 <Base title="About" description="Who we are and how the boosters support the choir program.">
   <h1>About</h1>
+
+  {sections.map((section) => <ContentSection section={section} />)}
+
+  {
+    documents.length > 0 && (
+      <section aria-labelledby="official-documents">
+        <h2 id="official-documents">Official documents</h2>
+        <ul class="document-list">
+          {documents.map((doc) => (
+            <li>
+              <ExternalLink href={doc.url}>{doc.label}</ExternalLink>
+              {doc.description && <span class="document-description">{doc.description}</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    moreVideos.length > 0 && (
+      <section aria-labelledby="videos">
+        <h2 id="videos">Videos</h2>
+        <VideoList videos={moreVideos} />
+      </section>
+    )
+  }
 </Base>

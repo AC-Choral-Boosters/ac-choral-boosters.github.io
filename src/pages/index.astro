@@ -1,7 +1,66 @@
 ---
 import Base from '../layouts/Base.astro';
+import ContentSection from '../components/ContentSection.astro';
+import EventList from '../components/EventList.astro';
+import LinkButtons from '../components/LinkButtons.astro';
+import MeetingList from '../components/MeetingList.astro';
+import VideoList from '../components/VideoList.astro';
+import { todayPacific } from '../lib/format';
+import { withBase } from '../lib/paths';
+import { byOrder, loadSheet, sectionsFor, splitMeetings, upcomingEvents } from '../lib/sheet';
+
+const data = await loadSheet();
+const today = todayPacific();
+
+const sections = sectionsFor(data.content, 'home');
+const featured = byOrder(data.links.filter((link) => link.featured));
+const events = upcomingEvents(data.events, today).slice(0, 3);
+const nextMeeting = splitMeetings(data.meetings, today).upcoming[0];
+const videos = byOrder(data.videos.filter((video) => video.show_on_home)).slice(0, 2);
 ---
 
 <Base description="Supporting the American Canyon High School choir program. Find events, meetings, and ways to give.">
-  <h1>AC Choral Boosters</h1>
+  <h1>{data.settings.club_name}</h1>
+  {data.settings.tagline && <p class="lede">{data.settings.tagline}</p>}
+
+  {
+    featured.length > 0 && (
+      <section aria-labelledby="quick-links">
+        <h2 id="quick-links" class="sr-only">Quick links</h2>
+        <LinkButtons links={featured} />
+      </section>
+    )
+  }
+
+  {sections.map((section) => <ContentSection section={section} />)}
+
+  {
+    events.length > 0 && (
+      <section aria-labelledby="upcoming-events">
+        <h2 id="upcoming-events">Upcoming events</h2>
+        <EventList events={events} />
+      </section>
+    )
+  }
+
+  {
+    nextMeeting && (
+      <section aria-labelledby="next-meeting">
+        <h2 id="next-meeting">Next meeting</h2>
+        <MeetingList meetings={[nextMeeting]} />
+        <p>
+          <a href={withBase('/meetings')}>All meetings, agendas, and minutes</a>
+        </p>
+      </section>
+    )
+  }
+
+  {
+    videos.length > 0 && (
+      <section aria-labelledby="videos">
+        <h2 id="videos">Videos</h2>
+        <VideoList videos={videos} />
+      </section>
+    )
+  }
 </Base>

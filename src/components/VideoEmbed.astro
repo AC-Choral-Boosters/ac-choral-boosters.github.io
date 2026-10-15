@@ -1,0 +1,25 @@
+---
+import type { Video } from '../lib/schemas';
+
+interface Props {
+  video: Video;
+}
+
+const { video } = Astro.props;
+---
+
+<figure class="video">
+  <div class="video-frame">
+    <iframe
+      src={video.embedUrl}
+      title={video.title}
+      loading="lazy"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen></iframe>
+  </div>
+  <figcaption>
+    <strong>{video.title}</strong>
+    {video.description && video.description !== video.title && <span>{video.description}</span>}
+  </figcaption>
+</figure>

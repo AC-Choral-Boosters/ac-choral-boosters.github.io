@@ -267,3 +267,40 @@ export function loadSheet(): Promise<SheetData> {
   cache ??= loadAll();
   return cache;
 }
+
+// ---------- Queries used by pages ----------
+
+/** Sorts by the "order" column, low first. Ties keep Sheet order. */
+export function byOrder<T extends { order: number }>(rows: T[]): T[] {
+  return [...rows].sort((a, b) => a.order - b.order);
+}
+
+/** Content sections for one page, in order. */
+export function sectionsFor(content: ContentSection[], page: ContentSection['page']): ContentSection[] {
+  return byOrder(content.filter((section) => section.page === page));
+}
+
+/** Links in the given categories, in order. */
+export function linksIn(links: Link[], ...categories: Link['category'][]): Link[] {
+  return byOrder(links.filter((link) => categories.includes(link.category)));
+}
+
+/** Events that have not ended yet (end_date or start_date on or after today), soonest first. */
+export function upcomingEvents(events: Event[], today: string): Event[] {
+  return events
+    .filter((event) => (event.end_date ?? event.start_date) >= today)
+    .sort((a, b) => a.start_date.localeCompare(b.start_date));
+}
+
+/** Upcoming meetings (today or later) soonest first, then past meetings newest first. */
+export function splitMeetings(meetings: Meeting[], today: string): { upcoming: Meeting[]; past: Meeting[] } {
+  return {
+    upcoming: meetings.filter((m) => m.date >= today).sort((a, b) => a.date.localeCompare(b.date)),
+    past: meetings.filter((m) => m.date < today).sort((a, b) => b.date.localeCompare(a.date)),
+  };
+}
+
+/** Folder ID from a Drive folder link such as https://drive.google.com/drive/folders/<ID>?usp=sharing. */
+export function driveFolderId(url: string): string | undefined {
+  return /\/folders\/([A-Za-z0-9_-]+)/.exec(url)?.[1];
+}

@@ -1,0 +1,20 @@
+---
+import ExternalLink from './ExternalLink.astro';
+import type { Settings } from '../lib/schemas';
+
+interface Props {
+  settings: Settings;
+}
+
+const { banner_enabled, banner_text, banner_link } = Astro.props.settings;
+---
+
+{
+  banner_enabled && banner_text && (
+    <div class="banner">
+      <p class="container">
+        {banner_link ? <ExternalLink href={banner_link}>{banner_text}</ExternalLink> : banner_text}
+      </p>
+    </div>
+  )
+}

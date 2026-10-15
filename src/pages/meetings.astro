@@ -1,7 +1,61 @@
 ---
 import Base from '../layouts/Base.astro';
+import ExternalLink from '../components/ExternalLink.astro';
+import MeetingList from '../components/MeetingList.astro';
+import { todayPacific } from '../lib/format';
+import { driveFolderId, loadSheet, splitMeetings } from '../lib/sheet';
+
+const { settings, meetings } = await loadSheet();
+const { upcoming, past } = splitMeetings(meetings, todayPacific());
+
+const folderId = settings.drive_embed ? driveFolderId(settings.drive_folder_url) : undefined;
+if (settings.drive_embed && !folderId) {
+  console.warn(`WARNING [settings] drive_embed is TRUE but no folder ID was found in drive_folder_url (embed left out)`);
+}
 ---
 
 <Base title="Meetings" description="Booster meeting dates, agendas, and minutes.">
   <h1>Meetings</h1>
+
+  <p>
+    <ExternalLink class="btn" href={settings.drive_folder_url}>All meeting documents</ExternalLink>
+  </p>
+
+  {
+    upcoming.length > 0 && (
+      <section aria-labelledby="upcoming-meetings">
+        <h2 id="upcoming-meetings">Upcoming meetings</h2>
+        <MeetingList meetings={upcoming} />
+      </section>
+    )
+  }
+
+  {
+    past.length > 0 && (
+      <section aria-labelledby="past-meetings">
+        <h2 id="past-meetings">Past meetings</h2>
+        <MeetingList meetings={past} />
+      </section>
+    )
+  }
+
+  {
+    upcoming.length === 0 && past.length === 0 && (
+      <p>No meetings are listed right now. Check the meeting documents folder for agendas and minutes.</p>
+    )
+  }
+
+  {
+    folderId && (
+      <section aria-labelledby="documents">
+        <h2 id="documents">Meeting documents</h2>
+        <iframe
+          class="drive-embed"
+          src={`https://drive.google.com/embeddedfolderview?id=${encodeURIComponent(folderId)}#list`}
+          title="Meeting documents folder in Google Drive"
+          loading="lazy"
+        />
+      </section>
+    )
+  }
 </Base>

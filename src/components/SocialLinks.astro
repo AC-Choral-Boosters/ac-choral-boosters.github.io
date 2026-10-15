@@ -1,0 +1,28 @@
+---
+import ExternalLink from './ExternalLink.astro';
+import type { Settings } from '../lib/schemas';
+
+interface Props {
+  settings: Settings;
+}
+
+const { settings } = Astro.props;
+const links = [
+  { label: 'Instagram', url: settings.instagram_url },
+  { label: 'Facebook', url: settings.facebook_url },
+  { label: 'YouTube', url: settings.youtube_channel_url },
+  { label: 'X (Twitter)', url: settings.twitter_url },
+].filter((link): link is { label: string; url: string } => Boolean(link.url));
+---
+
+{
+  links.length > 0 && (
+    <ul class="social-links" role="list">
+      {links.map((link) => (
+        <li>
+          <ExternalLink href={link.url}>{link.label}</ExternalLink>
+        </li>
+      ))}
+    </ul>
+  )
+}

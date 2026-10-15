@@ -1,0 +1,40 @@
+---
+import ExternalLink from './ExternalLink.astro';
+import { formatSheetDate } from '../lib/format';
+import type { Meeting } from '../lib/schemas';
+
+interface Props {
+  meetings: Meeting[];
+}
+
+const { meetings } = Astro.props;
+---
+
+<ul class="item-list" role="list">
+  {
+    meetings.map((meeting) => {
+      const date = formatSheetDate(meeting.date);
+      return (
+        <li class="item">
+          <h3 class="item-title">{meeting.title}</h3>
+          <p class="item-meta">{[date, meeting.time, meeting.location].filter(Boolean).join(' · ')}</p>
+          {meeting.notes && <p>{meeting.notes}</p>}
+          {(meeting.agenda_url || meeting.minutes_url) && (
+            <p class="item-links">
+              {meeting.agenda_url && (
+                <ExternalLink href={meeting.agenda_url}>
+                  Agenda<span class="sr-only"> for {meeting.title}, {date}</span>
+                </ExternalLink>
+              )}
+              {meeting.minutes_url && (
+                <ExternalLink href={meeting.minutes_url}>
+                  Minutes<span class="sr-only"> for {meeting.title}, {date}</span>
+                </ExternalLink>
+              )}
+            </p>
+          )}
+        </li>
+      );
+    })
+  }
+</ul>
