@@ -1,0 +1,42 @@
+---
+import { withBase, stripBase } from '../lib/paths';
+
+interface Props {
+  clubName: string;
+}
+
+const { clubName } = Astro.props;
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/meetings', label: 'Meetings' },
+  { href: '/donate', label: 'Donate' },
+  { href: '/payments', label: 'Payments' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const current = stripBase(Astro.url.pathname);
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href={withBase('/')}>
+      <img src={withBase('/images/boosters-mark.jpg')} alt="" width="60" height="43" />
+      <span>{clubName}</span>
+    </a>
+    <nav aria-label="Main">
+      <ul class="nav-list">
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={withBase(item.href)} aria-current={item.href === current ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

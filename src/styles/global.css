@@ -1,0 +1,224 @@
+/* Global styles. Mobile-first; colors from the club logo (black and gold). */
+
+:root {
+  --ink: #1f1f1f;
+  --ink-soft: #4a4a4a;
+  --gold: #c9a227;
+  --gold-dark: #7a5d00; /* gold for text on white (6:1 contrast) */
+  --gold-tint: #f7f0da;
+  --paper: #ffffff;
+  --paper-alt: #f6f5f1;
+  --line: #e2dfd6;
+
+  --radius: 10px;
+  --space: 1rem;
+  --max-width: 60rem;
+
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
+}
+
+h2 {
+  font-size: clamp(1.35rem, 4.5vw, 1.75rem);
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--gold-dark);
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--ink);
+}
+
+/* Visible focus on light backgrounds: dark ring with a gold halo. */
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--gold);
+  border-radius: 2px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space);
+}
+
+/* Skip link: hidden until focused. */
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  border-radius: var(--radius);
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+  color: var(--paper);
+}
+
+/* Header */
+.site-header {
+  background: var(--paper);
+  border-bottom: 4px solid var(--gold);
+}
+
+.header-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 0.75rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 1.15rem;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.brand img {
+  width: 60px;
+  height: auto;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-list a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  min-height: 44px; /* tap target */
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 999px;
+}
+
+.nav-list a:hover {
+  background: var(--gold-tint);
+}
+
+.nav-list a[aria-current='page'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Main */
+main {
+  flex: 1;
+  padding-block: 2rem 3rem;
+}
+
+.lede {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  max-width: 40rem;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--ink);
+  color: var(--paper);
+  border-top: 4px solid var(--gold);
+  padding-block: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.site-footer a {
+  color: var(--gold);
+}
+
+.site-footer a:hover {
+  color: var(--paper);
+}
+
+.site-footer :focus-visible {
+  outline-color: var(--gold);
+  box-shadow: none;
+}
+
+.footer-inner p {
+  margin: 0 0 0.5rem;
+}
+
+.footer-name {
+  font-weight: 700;
+}
+
+.footer-updated {
+  color: #cfcfcf;
+  font-size: 0.85rem;
+}
+
+/* Wider screens */
+@media (min-width: 48rem) {
+  .header-inner {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .nav-list {
+    justify-content: flex-end;
+  }
+}

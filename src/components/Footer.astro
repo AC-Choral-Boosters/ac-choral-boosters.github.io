@@ -1,0 +1,19 @@
+---
+import { formatTimestamp } from '../lib/format';
+
+interface Props {
+  clubName: string;
+}
+
+const { clubName } = Astro.props;
+
+// Contact email, social links, and the 501(c)(3) line come from Settings in phase 3.
+const lastUpdated = formatTimestamp(new Date());
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-name">{clubName}</p>
+    <p class="footer-updated">Last updated {lastUpdated}</p>
+  </div>
+</footer>
