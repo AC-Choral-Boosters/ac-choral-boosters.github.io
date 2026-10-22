@@ -153,7 +153,6 @@ a:hover {
   grid-template-columns: repeat(3, 1fr);
   gap: 0.25rem;
   width: 100%;
-  max-width: 24rem;
   text-align: center;
   margin: 0;
   padding: 0;
@@ -246,41 +245,42 @@ main {
   vertical-align: -0.1em;
 }
 
-/* Banner: a light notice under the header. Light on the dark page so it
-   stands out, and not gold so it does not read as a button. */
+/* Banner: a warm dark-gold notice with a gold border and icon. It glows a
+   little against the page and is not a gold pill, so it does not read as a button. */
 .banner {
   padding-top: 1.25rem;
 }
 
 .banner p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
   margin: 0;
-  padding: 0.85rem 1.25rem;
-  background: var(--ink);
-  color: var(--on-gold);
-  border: 3px solid var(--gold);
+  padding: 0.9rem 1.25rem;
+  background: linear-gradient(135deg, #4d3f17, #2e2716);
+  color: var(--ink);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 4px rgb(201 162 39 / 0.15), 0 8px 24px rgb(0 0 0 / 0.35);
   font-size: 1.1rem;
   font-weight: 700;
   text-align: center;
-  border-radius: 4px;
+}
+
+.banner-icon {
+  flex: none;
+  color: var(--gold-dark);
 }
 
 .banner a {
-  color: var(--on-gold);
-}
-
-.banner a:hover {
-  color: var(--on-gold);
+  color: var(--ink);
+  text-decoration-color: var(--gold);
   text-decoration-thickness: 2px;
 }
 
-/* Balance the off-site icon so the text sits in the true center. */
-.banner a:has(.offsite-icon) {
-  padding-left: calc(14px + 0.25em);
-}
-
-.banner :focus-visible {
-  outline-color: var(--on-gold);
-  box-shadow: none;
+.banner a:hover {
+  color: var(--gold-dark);
 }
 
 /* Sections */
