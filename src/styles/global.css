@@ -32,6 +32,25 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* Always leave room for the scrollbar so short and long pages line up. */
+  scrollbar-gutter: stable;
+}
+
+/* Fade between pages instead of a hard reload flash. CSS only; browsers
+   without support just load the page normally. */
+@view-transition {
+  navigation: auto;
+}
+
+/* Keep the header still while the page content fades. */
+.site-header {
+  view-transition-name: site-header;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
 }
 
 body {
@@ -147,11 +166,16 @@ a:hover {
   height: auto;
 }
 
+/* Phones: the nav spans the full width, like the buttons below it. */
+.site-header nav {
+  width: 100%;
+}
+
 /* Phones: two even rows of three. Wider screens switch to one row (below). */
 .nav-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.25rem;
+  gap: 0.5rem;
   width: 100%;
   text-align: center;
   margin: 0;
@@ -167,6 +191,7 @@ a:hover {
   font-weight: 600;
   text-decoration: none;
   border-radius: 999px;
+  background: var(--paper-alt); /* phones: filled tiles span the full width */
 }
 
 .nav-list a:hover {
@@ -251,11 +276,13 @@ main {
   padding-top: 1.25rem;
 }
 
+/* Phones: icon above the text so they do not crowd. Wider screens: side by side. */
 .banner p {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.4rem;
   margin: 0;
   padding: 0.9rem 1.25rem;
   background: linear-gradient(135deg, #4d3f17, #2e2716);
@@ -482,12 +509,25 @@ address {
     justify-content: space-between;
   }
 
+  .site-header nav {
+    width: auto;
+  }
+
   .nav-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
+    gap: 0.25rem;
     width: auto;
-    max-width: none;
+  }
+
+  .nav-list a:not([aria-current='page']):not(:hover) {
+    background: none;
+  }
+
+  .banner p {
+    flex-direction: row;
+    gap: 0.75rem;
   }
 
   .video-grid {
