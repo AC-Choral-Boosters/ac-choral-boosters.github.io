@@ -20,8 +20,10 @@ const videos = byOrder(data.videos.filter((video) => video.show_on_home)).slice(
 ---
 
 <Base description="Supporting the American Canyon High School choir program. Find events, meetings, and ways to give.">
-  <h1>{data.settings.club_name}</h1>
-  {data.settings.tagline && <p class="lede">{data.settings.tagline}</p>}
+  <div class="home-intro">
+    <h1>{data.settings.club_name}</h1>
+    {data.settings.tagline && <p class="lede">{data.settings.tagline}</p>}
+  </div>
 
   {
     featured.length > 0 && (
