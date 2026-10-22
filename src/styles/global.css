@@ -246,7 +246,8 @@ main {
   vertical-align: -0.1em;
 }
 
-/* Banner: a gold callout under the header so it stands out from the page. */
+/* Banner: a light notice under the header. Light on the dark page so it
+   stands out, and not gold so it does not read as a button. */
 .banner {
   padding-top: 1.25rem;
 }
@@ -254,12 +255,13 @@ main {
 .banner p {
   margin: 0;
   padding: 0.85rem 1.25rem;
-  background: var(--gold);
+  background: var(--ink);
   color: var(--on-gold);
+  border: 3px solid var(--gold);
   font-size: 1.1rem;
   font-weight: 700;
   text-align: center;
-  border-radius: var(--radius);
+  border-radius: 4px;
 }
 
 .banner a {
