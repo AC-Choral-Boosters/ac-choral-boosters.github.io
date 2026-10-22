@@ -1,4 +1,4 @@
-# AC Choral Boosters website
+# American Canyon Choral Boosters website
 
 Static site for the American Canyon High School Choral Boosters. Content comes from a published Google Sheet; GitHub Actions rebuilds the site every hour and publishes it to GitHub Pages.
 

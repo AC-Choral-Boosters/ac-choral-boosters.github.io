@@ -32,6 +32,17 @@ const videos = byOrder(data.videos.filter((video) => video.show_on_home)).slice(
     )
   }
 
+  <div class="home-brand">
+    <p class="home-brand-name">{data.settings.club_name}</p>
+    <img
+      class="home-logo"
+      src={withBase('/images/boosters-logo.jpg')}
+      alt={`${data.settings.club_name} logo`}
+      width="626"
+      height="640"
+    />
+  </div>
+
   {sections.map((section) => <ContentSection section={section} />)}
 
   {

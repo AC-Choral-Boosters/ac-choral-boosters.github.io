@@ -198,7 +198,7 @@ test.describe('settings', () => {
     const { settings, warnings } = parseSettings(fixture('settings'));
     expect(warnings).toEqual([]);
     expect(settings).toMatchObject({
-      club_name: 'AC Choral Boosters',
+      club_name: 'American Canyon Choral Boosters',
       contact_email: 'boosters@example.org',
       banner_enabled: false,
       drive_embed: false,

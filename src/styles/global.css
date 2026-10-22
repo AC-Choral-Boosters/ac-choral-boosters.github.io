@@ -166,6 +166,13 @@ a:hover {
   height: auto;
 }
 
+/* The lettering from the logo, cut out on a transparent background. */
+.brand .wordmark {
+  width: auto;
+  height: 2.6rem;
+  border-radius: 0;
+}
+
 /* Phones: the nav spans the full width, like the buttons below it. */
 .site-header nav {
   width: 100%;
@@ -413,6 +420,29 @@ main section {
   display: flex;
   flex-wrap: wrap;
   gap: 1.25rem;
+}
+
+/* Home logo with the club name above it, centered below the quick links */
+.home-brand {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.home-brand-name {
+  margin: 0 0 1rem;
+  font-size: clamp(1.35rem, 5vw, 2rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.home-logo {
+  display: block;
+  width: min(18rem, 70%);
+  height: auto;
+  margin: 0 auto;
+  border-radius: var(--radius);
 }
 
 /* Content sections */

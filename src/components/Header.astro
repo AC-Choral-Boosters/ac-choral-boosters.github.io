@@ -23,7 +23,7 @@ const current = stripBase(Astro.url.pathname);
   <div class="container header-inner">
     <a class="brand" href={withBase('/')}>
       <img src={withBase('/images/boosters-mark.jpg')} alt="" width="60" height="43" />
-      <span>{clubName}</span>
+      <img class="wordmark" src={withBase('/images/boosters-wordmark.png')} alt={clubName} width="529" height="128" />
     </a>
     <nav aria-label="Main">
       <ul class="nav-list">
