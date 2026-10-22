@@ -147,11 +147,14 @@ a:hover {
   height: auto;
 }
 
+/* Phones: two even rows of three. Wider screens switch to one row (below). */
 .nav-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.25rem;
+  width: 100%;
+  max-width: 24rem;
+  text-align: center;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -243,21 +246,39 @@ main {
   vertical-align: -0.1em;
 }
 
-/* Banner */
+/* Banner: a gold callout under the header so it stands out from the page. */
 .banner {
-  background: var(--gold-tint);
-  border-bottom: 1px solid var(--line);
+  padding-top: 1.25rem;
 }
 
 .banner p {
   margin: 0;
-  padding-block: 0.75rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--gold);
+  color: var(--on-gold);
+  font-size: 1.1rem;
   font-weight: 700;
   text-align: center;
+  border-radius: var(--radius);
 }
 
 .banner a {
-  color: var(--ink);
+  color: var(--on-gold);
+}
+
+.banner a:hover {
+  color: var(--on-gold);
+  text-decoration-thickness: 2px;
+}
+
+/* Balance the off-site icon so the text sits in the true center. */
+.banner a:has(.offsite-icon) {
+  padding-left: calc(14px + 0.25em);
+}
+
+.banner :focus-visible {
+  outline-color: var(--on-gold);
+  box-shadow: none;
 }
 
 /* Sections */
@@ -460,7 +481,11 @@ address {
   }
 
   .nav-list {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
+    width: auto;
+    max-width: none;
   }
 
   .video-grid {

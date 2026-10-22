@@ -11,8 +11,8 @@ const { banner_enabled, banner_text, banner_link } = Astro.props.settings;
 
 {
   banner_enabled && banner_text && (
-    <div class="banner">
-      <p class="container">
+    <div class="banner container">
+      <p>
         {banner_link ? <ExternalLink href={banner_link}>{banner_text}</ExternalLink> : banner_text}
       </p>
     </div>
