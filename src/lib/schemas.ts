@@ -92,7 +92,8 @@ const order = z
 const oneOf = <const T extends readonly [string, ...string[]]>(values: T) =>
   z
     .string({ error: 'is required' })
-    .transform((value) => value.toLowerCase())
+    // "Crab Dinner" and "crab-dinner" both mean crab_dinner (the page address uses a hyphen).
+    .transform((value) => value.toLowerCase().replace(/[\s-]+/g, '_'))
     .pipe(z.enum(values, { error: (issue) => `"${issue.input}" must be one of: ${values.join(', ')}` }));
 
 // ---------- Settings (key/value tab) ----------

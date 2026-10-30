@@ -559,6 +559,18 @@ address {
 
 /* Wider screens */
 @media (min-width: 48rem) {
+  .banner p {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
+}
+
+/* Header on one row. Below this width (seven tabs with Crab Dinner on) the tabs stay in the phone layout. */
+@media (min-width: 60rem) {
   .header-inner {
     flex-direction: row;
     justify-content: space-between;
@@ -578,14 +590,5 @@ address {
 
   .nav-list a:not([aria-current='page']):not(:hover) {
     background: none;
-  }
-
-  .banner p {
-    flex-direction: row;
-    gap: 0.75rem;
-  }
-
-  .video-grid {
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   }
 }

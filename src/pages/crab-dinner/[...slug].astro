@@ -23,7 +23,7 @@ const crabLinks = linksIn(links, 'crab_dinner');
   {
     crabLinks.length > 0 && (
       <section aria-labelledby="crab-dinner-links">
-        <h2 id="crab-dinner-links">Tickets and sponsorship</h2>
+        <h2 id="crab-dinner-links" class="sr-only">Crab Dinner links</h2>
         <LinkButtons links={crabLinks} />
       </section>
     )

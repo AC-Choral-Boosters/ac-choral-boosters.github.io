@@ -80,6 +80,19 @@ test.describe('links', () => {
     expect(result.hidden).toBe(2);
   });
 
+  test('category accepts spaces, hyphens, and any case for crab_dinner', () => {
+    const csv =
+      'label,url,category\nA,https://example.org,Crab Dinner\nB,https://example.org,crab-dinner\nC,https://example.org,CRAB_DINNER\n';
+    const result = parseTab('links', csv);
+    expect(result.rows.map((l) => l.category)).toEqual(['crab_dinner', 'crab_dinner', 'crab_dinner']);
+    expect(result.warnings).toEqual([]);
+  });
+
+  test('content page accepts crab-dinner', () => {
+    const csv = 'page,heading\ncrab-dinner,Join us\n';
+    expect(parseTab('content', csv).rows[0]?.page).toBe('crab_dinner');
+  });
+
   test('category must be a known value', () => {
     const csv = 'label,url,category\nDonate,https://example.org,Donate\nShop,https://example.org,store\n';
     const result = parseTab('links', csv);
