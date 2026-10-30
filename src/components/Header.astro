@@ -3,18 +3,21 @@ import { withBase, stripBase } from '../lib/paths';
 
 interface Props {
   clubName: string;
+  /** Settings crab_dinner_enabled. FALSE removes the Crab Dinner tab. */
+  showCrabDinner?: boolean;
 }
 
-const { clubName } = Astro.props;
+const { clubName, showCrabDinner = false } = Astro.props;
 
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/meetings', label: 'Meetings' },
   { href: '/donate', label: 'Donate' },
   { href: '/payments', label: 'Payments' },
+  { href: '/crab-dinner', label: 'Crab Dinner' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
-];
+].filter((item) => showCrabDinner || item.href !== '/crab-dinner');
 
 const current = stripBase(Astro.url.pathname);
 ---
@@ -26,7 +29,7 @@ const current = stripBase(Astro.url.pathname);
       <img class="wordmark" src={withBase('/images/boosters-wordmark.png')} alt={clubName} width="529" height="128" />
     </a>
     <nav aria-label="Main">
-      <ul class="nav-list">
+      <ul class="nav-list" data-count={navItems.length}>
         {
           navItems.map((item) => (
             <li>

@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ContentSection from '../components/ContentSection.astro';
-import ExternalLink from '../components/ExternalLink.astro';
+import LinkButtons from '../components/LinkButtons.astro';
 import VideoList from '../components/VideoList.astro';
 import { byOrder, linksIn, loadSheet, sectionsFor } from '../lib/sheet';
 
@@ -20,14 +20,7 @@ const moreVideos = byOrder(videos.filter((video) => !video.show_on_home));
     documents.length > 0 && (
       <section aria-labelledby="official-documents">
         <h2 id="official-documents">Official documents</h2>
-        <ul class="document-list">
-          {documents.map((doc) => (
-            <li>
-              <ExternalLink href={doc.url}>{doc.label}</ExternalLink>
-              {doc.description && <span class="document-description">{doc.description}</span>}
-            </li>
-          ))}
-        </ul>
+        <LinkButtons links={documents} />
       </section>
     )
   }

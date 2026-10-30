@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import ContentSection from '../../components/ContentSection.astro';
+import LinkButtons from '../../components/LinkButtons.astro';
+import { linksIn, loadSheet, sectionsFor } from '../../lib/sheet';
+
+// The page only exists while Settings crab_dinner_enabled is TRUE. The nav tab follows the same switch.
+export async function getStaticPaths() {
+  const { settings } = await loadSheet();
+  return settings.crab_dinner_enabled ? [{ params: { slug: undefined } }] : [];
+}
+
+const { links, content } = await loadSheet();
+const sections = sectionsFor(content, 'crab_dinner');
+const crabLinks = linksIn(links, 'crab_dinner');
+---
+
+<Base title="Crab Dinner" description="Tickets, donation letters, and sponsorship information for the choir crab dinner.">
+  <h1>Crab Dinner</h1>
+
+  {sections.map((section) => <ContentSection section={section} />)}
+
+  {
+    crabLinks.length > 0 && (
+      <section aria-labelledby="crab-dinner-links">
+        <h2 id="crab-dinner-links">Tickets and sponsorship</h2>
+        <LinkButtons links={crabLinks} />
+      </section>
+    )
+  }
+</Base>

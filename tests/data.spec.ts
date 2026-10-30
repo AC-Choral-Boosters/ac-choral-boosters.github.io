@@ -73,6 +73,13 @@ test.describe('links', () => {
     expect(result.warnings[0]).toMatch(/^\[links\] row 10 skipped: url "javascript:alert\(1\)" is not a valid link/);
   });
 
+  test('crab_dinner is a known category and the Hidden row is dropped', () => {
+    const result = parseTab('links', fixture('links'));
+    const crab = result.rows.filter((l) => l.category === 'crab_dinner').map((l) => l.label);
+    expect(crab).toEqual(['Crab Dinner Tickets', 'Sponsorship Letter', 'Donation Letter']);
+    expect(result.hidden).toBe(2);
+  });
+
   test('category must be a known value', () => {
     const csv = 'label,url,category\nDonate,https://example.org,Donate\nShop,https://example.org,store\n';
     const result = parseTab('links', csv);
@@ -151,7 +158,7 @@ test.describe('CSV handling', () => {
 
 test.describe('fixtures load', () => {
   test('every list tab parses with only the expected warnings', () => {
-    expect(parseTab('links', fixture('links')).rows).toHaveLength(7);
+    expect(parseTab('links', fixture('links')).rows).toHaveLength(13);
     expect(parseTab('events', fixture('events')).rows).toHaveLength(5);
     const meetings = parseTab('meetings', fixture('meetings'));
     expect(meetings.rows).toHaveLength(4);
@@ -206,6 +213,12 @@ test.describe('settings', () => {
     });
     expect(settings.mailing_address).toBe('101 W American Canyon Road 508-115\nAmerican Canyon, CA 94503');
     expect(settings.twitter_url).toBeUndefined();
+  });
+
+  test('crab_dinner_enabled defaults to FALSE and reads TRUE', () => {
+    const base = 'key,value\nclub_name,B\ncontact_email,a@example.org\nbanner_enabled,FALSE\ndrive_folder_url,https://drive.google.com/drive/folders/abc\n';
+    expect(parseSettings(base).settings.crab_dinner_enabled).toBe(false);
+    expect(parseSettings(`${base}crab_dinner_enabled,yes\n`).settings.crab_dinner_enabled).toBe(true);
   });
 
   test('a missing required setting fails the build', () => {

@@ -178,16 +178,46 @@ a:hover {
   width: 100%;
 }
 
-/* Phones: two even rows of three. Wider screens switch to one row (below). */
+/* Phones: even rows (3 + 3, or 4 + 3 with Crab Dinner). Wider screens switch to one row (below). */
 .nav-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   gap: 0.5rem;
   width: 100%;
   text-align: center;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.nav-list li {
+  grid-column: span 4;
+}
+
+/* Seven tabs (Crab Dinner on): four on the first row, three on the second. */
+.nav-list[data-count='7'] li {
+  grid-column: span 3;
+}
+
+.nav-list[data-count='7'] li:nth-child(n + 5) {
+  grid-column: span 4;
+}
+
+.nav-list[data-count='7'] a {
+  padding-inline: 0.25rem;
+  font-size: 0.92rem;
+}
+
+/* Very narrow phones: slightly smaller text so all seven tabs fit on one line each. */
+@media (max-width: 360px) {
+  .nav-list[data-count='7'] {
+    gap: 0.4rem 0.3rem;
+  }
+
+  .nav-list[data-count='7'] a {
+    font-size: 0.82rem;
+    padding-inline: 0.1rem;
+  }
 }
 
 .nav-list a {
@@ -507,21 +537,6 @@ main section {
   height: 28rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-}
-
-/* About: official documents */
-.document-list {
-  padding-left: 1.25rem;
-}
-
-.document-list li {
-  margin-bottom: 0.5rem;
-}
-
-.document-description {
-  display: block;
-  color: var(--ink-soft);
-  font-size: 0.95rem;
 }
 
 .tax-note {

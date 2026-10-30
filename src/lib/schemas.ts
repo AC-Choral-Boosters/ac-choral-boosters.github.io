@@ -106,6 +106,7 @@ export const settingsSchema = z.object({
   banner_link: url.optional(),
   drive_folder_url: url,
   drive_embed: boolean(false),
+  crab_dinner_enabled: boolean(false),
   is_501c3: boolean(false),
   ein: optionalText,
   mailing_address: optionalText,
@@ -121,7 +122,7 @@ export const REQUIRED_SETTINGS = ['club_name', 'contact_email', 'banner_enabled'
 
 // ---------- List tabs ----------
 
-export const LINK_CATEGORIES = ['donate', 'payment', 'tickets', 'volunteer', 'document', 'other'] as const;
+export const LINK_CATEGORIES = ['donate', 'payment', 'tickets', 'volunteer', 'crab_dinner', 'document', 'other'] as const;
 
 export const linkSchema = z.object({
   label: required,
@@ -182,7 +183,7 @@ export const videoSchema = z
   });
 export type Video = z.infer<typeof videoSchema>;
 
-export const CONTENT_PAGES = ['home', 'about', 'donate', 'payments', 'contact'] as const;
+export const CONTENT_PAGES = ['home', 'about', 'donate', 'payments', 'crab_dinner', 'contact'] as const;
 
 export const contentSchema = z
   .object({

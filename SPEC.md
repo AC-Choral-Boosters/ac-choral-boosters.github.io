@@ -9,7 +9,7 @@
 ## 1. Scope
 
 **In scope**
-- 6 pages: Home (hub), Meetings, Donate, Payments, About, Contact
+- 7 pages: Home (hub), Meetings, Donate, Payments, Crab Dinner, About, Contact
 - All editable content (links, dates, meetings, videos, page text, settings) comes from one Google Sheet
 - Meeting agendas and minutes live in a Google Drive folder; the site links to them
 - YouTube embeds
@@ -105,6 +105,7 @@ Column names below are the exact header row. The provided template (`Booster_Clu
 | banner_link | no | https://... |
 | drive_folder_url | yes | https://drive.google.com/drive/folders/<ID> |
 | drive_embed | no (default FALSE) | TRUE shows the Drive folder inline on Meetings |
+| crab_dinner_enabled | no (default FALSE) | TRUE shows the Crab Dinner tab and page; FALSE removes both |
 | is_501c3 | no | TRUE |
 | ein | no | 12-3456789 |
 | mailing_address | no | 101 W American Canyon Road 508-115, American Canyon, CA 94503 (line breaks in the cell are kept) |
@@ -116,7 +117,7 @@ Column names below are the exact header row. The provided template (`Booster_Clu
 | label | text | yes | Button text |
 | url | url | yes | External site |
 | description | text | no | One line under the button |
-| category | donate, payment, tickets, volunteer, document, other | yes | Which page lists it. `document` = official documents (bylaws, IRS letter) stored in Google Drive |
+| category | donate, payment, tickets, volunteer, crab_dinner, document, other | yes | Which page lists it. `crab_dinner` = Crab Dinner page (tickets, donation and sponsorship letters). `document` = official documents (bylaws, IRS letter) stored in Google Drive, shown on About. `other` is not listed on any page |
 | featured | boolean | no (FALSE) | Show on Home |
 | order | number | no (999) | Sort order, low first |
 | visible | boolean | no (TRUE) | FALSE hides without deleting |
@@ -159,7 +160,7 @@ Column names below are the exact header row. The provided template (`Booster_Clu
 ### 5.6 Content (page text)
 | Column | Type | Required | Notes |
 | --- | --- | --- | --- |
-| page | home, about, donate, payments, contact | yes | |
+| page | home, about, donate, payments, crab_dinner, contact | yes | |
 | order | number | no (999) | Section order on that page |
 | heading | text | no | |
 | body | text | no | Blank line = new paragraph; lines starting with "- " become a bullet list; bare URLs and emails auto-link |
@@ -197,9 +198,14 @@ Shared layout: header (club name, nav), banner when `banner_enabled` is TRUE, fo
 - Buttons for visible Links with `category` in (payment, tickets), grouped under "Payments" and "Tickets"
 - Visible Links with `category = volunteer` under "Volunteer" if any exist
 
+### Crab Dinner `/crab-dinner`
+- Only built when Settings `crab_dinner_enabled` is TRUE; otherwise the page and its nav tab do not exist
+- Content sections where `page = crab_dinner`
+- Buttons for visible Links with `category = crab_dinner`, sorted by `order` (tickets, donation and sponsorship letters)
+
 ### About `/about`
 - Content sections where `page = about`
-- "Official documents" list: visible Links with `category = document`, sorted by `order`, showing label and description (hidden when empty)
+- "Official documents" buttons: visible Links with `category = document`, sorted by `order`, showing label and description (hidden when empty)
 - Videos not shown on home, if any (optional section, hidden when empty)
 
 ### Contact `/contact`
@@ -241,7 +247,7 @@ Shared layout: header (club name, nav), banner when `banner_enabled` is TRUE, fo
     lib/sheet.ts  schemas.ts  format.ts  youtube.ts  text.ts
     components/  Header Footer Banner LinkButton EventList MeetingList VideoEmbed ContentSection
     layouts/Base.astro
-    pages/  index meetings donate payments about contact (.astro)
+    pages/  index meetings donate payments crab-dinner about contact (.astro)
     styles/global.css
   tests/  fixtures/*.csv  *.spec.ts
   site.config.json

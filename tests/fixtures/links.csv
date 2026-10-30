@@ -8,3 +8,10 @@ IRS Letter,https://docs.google.com/document/d/example-irs,501(c)(3) determinatio
 Email the Board,mailto:boosters@example.org,,other,,,
 Old Fundraiser,https://example.org/old,No longer running,donate,FALSE,9,FALSE
 Bad Script Link,javascript:alert(1),Should be skipped,donate,TRUE,1,TRUE
+Crab Dinner Tickets,https://example.org/crab-dinner-tickets,Buy tickets for the dinner,crab_dinner,TRUE,1,TRUE
+Sponsorship Letter,https://docs.google.com/document/d/example-sponsor,Become a sponsor,crab_dinner,,2,TRUE
+Donation Letter,https://docs.google.com/document/d/example-donation,Donate an item or gift card,crab_dinner,,3,TRUE
+Annual Report,https://docs.google.com/document/d/example-report,Yearly financial report,document,,3,TRUE
+Conflict of Interest Policy,https://docs.google.com/document/d/example-coi,Board conflict of interest policy,document,,4,TRUE
+Form 990,https://docs.google.com/document/d/example-990,IRS filing,document,,5,TRUE
+Hidden Crab Link,https://example.org/hidden-crab,Switched off,crab_dinner,,9,FALSE
